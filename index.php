@@ -2,6 +2,16 @@
 include "partials/header.php";
 include "partials/navbar.php";
 include "partials/hero.php";
+
+// $user = new User();
+
+// var_dump(get_declared_classes());
+
+
+// $db = new Database();
+
+// var_dump($db->getConnection());
+
 ?>
 
 

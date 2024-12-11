@@ -1,9 +1,9 @@
 
 <?php
 
-include __DIR__ . "/../../helpers.php";
+include __DIR__ . "/../../init.php";
 
-echo base_url("cms-pdo-php");
+
 
 ?>
 
