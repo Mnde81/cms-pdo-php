@@ -45,4 +45,49 @@ class Article {
             return false;
         }
     }
+
+
+    public function getArticleWithOwnerByID($id)
+    {
+        $query = "SELECT articles.id, articles.title, articles.content, articles.image, articles.created_at, users.username AS author, users.email AS author_email FROM " . $this->table . " JOIN users ON articles.user_id = user_id WHERE articles.id = :id LIMIT 1";
+
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $article = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if($article){
+            return $article;
+
+        } else {
+            return false;
+        }
+    }
+
+    public function getArticlesByUser($userId) {
+        $query = "SELECT * FROM " . $this->table . " WHERE user_id = :user_id ORDER BY created_at DESC";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+
+
+    }
+
+    public function formatCreatedAt($date) {
+        return date('F j, Y', strtotime($date));
+    }
+ 
+
+    public function create($title, $content, $author_id, $created_at) {
+        $query = "INSERT INTO " . $this->table . " (title, content, user_id, created_at) VALUES (:title, :content, :user_id, :created_at)";
+
+        $stmt = $this->conn->prepare($query);
+    }
 }

@@ -9,7 +9,7 @@ $articleId = isset($_GET['id']) ? (int)$_GET['id'] : null;
 if($articleId) {
     $article = new Article();
 
-    $articleData = $article->getArticleById($articleId);
+    $articleData = $article->getArticleWithOwnerByID($articleId);
 
     
 } else {
@@ -28,7 +28,7 @@ if($articleId) {
 
  <!-- Main Content -->
  <main class="container my-5">
-    <h2 class="text-center"><?php echo $articleData->title; ?></h2>
+   
         <!-- Featured Image -->
         <div class="mb-4">
 
@@ -47,8 +47,21 @@ if($articleId) {
 
         <?php endif; ?>
         </div>
+
+        <section>
+            <div class="container">
+                <h1 class="display-4"><?php echo $articleData->title; ?></h1>
+                <small>
+                    By <a href=""><?php echo $articleData->author; ?></a>
+                    <span><?php echo $article->formatCreatedAt($articleData->created_at); ?></span>
+
+                </small>
+            </div>
+        </section>
+
+
         <!-- Article Content -->
-        <article>
+        <article class="container my-5">
         <?php echo htmlspecialchars($articleData->content); ?>
           
         </article>
